@@ -204,9 +204,9 @@
   margin-bottom: 30px;
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 1400px) {
   .main {
-    width: 1600px;
+    width: 1400px;
     margin: auto;
   }
 }

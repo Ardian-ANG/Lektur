@@ -11,6 +11,7 @@ import { userAuthReducer } from "./User/userAuthReducer";
 import getContentReducer from "./Content/getContentReducer";
 import getContentsReducer from "./Content/getContentsReducer";
 import assessmentReducer from "./Asessment/assessmentReducer";
+import studentAssessmentsReducer from "./Student/getStudentAssesmentReducer";
 
 const rootReducer = combineReducers({
   searchCourses: searchCourseReducer,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   userAuth: userAuthReducer,
   getContent: getContentReducer,
   getContents: getContentsReducer,
+  getStudentAssessment: studentAssessmentsReducer,
   assessments: assessmentReducer,
 });
 

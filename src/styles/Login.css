@@ -181,6 +181,7 @@
 
 
 .icons-google {
+  padding: 1px;
   border: 1px solid #16213b;
   border-radius: 4px;
   width: 45px;
@@ -199,8 +200,8 @@
 }
 
 .icons-facebook img {
-  width: 39px;
-  height: 39px;
+  width: 34px;
+  height: 34px;
   align-self: center;
 }
 

@@ -54,14 +54,13 @@ const ContentVideoMain = () => {
   })[0];
   // console.log(filteredCourse);
 const getIdCourse = filteredCourse?.id
-// console.log(getIdCourse);
   const progressContent = filteredCourse?.progress.map((content) => {
     return content.content.id;
   });
 
-  // console.log(progressContent);
+  
 
-  // console.log(filteredCourse?.contents[filteredCourse?.contents.length - 1].id);
+  
 
   // Handler for video ended
   const videoEndHandler = () => {

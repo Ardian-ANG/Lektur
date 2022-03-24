@@ -18,6 +18,7 @@ import { getPopUpContentAction, getPopUpMaterialAction } from "../../redux/actio
 import { uploadImageAction } from "../../redux/actions/User/updateUserProfile";
 import { Link, useLocation } from "react-router-dom";
 import postStudentProgress from "../../redux/actions/Student/postStudentProgress";
+import getStudentAssessment from "../../redux/actions/Student/getStudentAssessment";
 
 let token = localStorage.getItem("token");
 
@@ -36,11 +37,12 @@ const DashboardCourse = () => {
   //show modal State
   const [showContentModal, setShowContentModal] = useState(false);
   const [showMaterialModal, setShowMaterialModal] = useState(false);
-const {state} = useLocation()
+  const { state } = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getEnrolledCoursesAction(token));
+    dispatch(getStudentAssessment());
   }, [dispatch]);
 
   useEffect(() => {
@@ -210,10 +212,12 @@ const {state} = useLocation()
           <p className={styles.author}>{state?.teacher}</p>
           <p className={styles.date}>Completed at: {state?.date}</p>
         </div>
-          <div className={styles.completed}>
-          <p className={styles.number}>{state?.score}</p> 
-          <p className={styles["correct-amount"]}>{state?.answer}/{state?.questions} Question Correct</p>
-        </div> 
+        <div className={styles.completed}>
+          <p className={styles.number}>{state?.score}</p>
+          <p className={styles["correct-amount"]}>
+            {state?.answer}/{state?.questions} Question Correct
+          </p>
+        </div>
       </div>
       {/* <div className={styles["assessment-control"]}>
         <div className={styles.detail}>

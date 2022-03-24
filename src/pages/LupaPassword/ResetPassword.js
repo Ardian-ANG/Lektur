@@ -13,6 +13,31 @@ function ResetPassword() {
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
 
+    const validation = (values) => {
+    //   console.log(values);
+      const errors = {};
+      const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
+      if (!values.newPassword) {
+        errors.newPassword = "Password is required!";
+      } else if (values.newPassword < 4) {
+        errors.newPassword = "Password must be more than 4 characters";
+      } else if (values.newPassword > 20) {
+        errors.newPassword = "Password cannot exceed than 20 characters";
+      } else if (!regex.test(values.newPassword)) {
+        errors.newPassword = "must contain 6 characters, one uppercase, one lowercase, one number and one special case character";
+      }
+      if (!values.confirmPassword) {
+        errors.confirmPassword = "Password is required!";
+      } else if (values.confirmPassword < 4) {
+        errors.confirmPassword = "Password must be more than 4 characters";
+      } else if (values.confirmPassword > 20) {
+        errors.confirmPassword = "Password cannot exceed than 20 characters";
+      } else if (!regex.test(values.confirmPassword)) {
+        errors.confirmPassword = "must contain 6 characters, one uppercase, one lowercase, one number and one special case character";
+      }
+      return errors;
+    };
+
     const navigate = useNavigate();
 
     const newPasswordHandler = (e) => {
@@ -32,7 +57,8 @@ function ResetPassword() {
             confirmPassword: inputtedConfirmPassword,
         };
 
-        setFormErrors(validati(inputData));
+        setFormErrors(validation(inputData));
+        console.log(formErrors)
         setIsSubmit(true);
 
         axios({
@@ -45,7 +71,7 @@ function ResetPassword() {
         
         localStorage.setItem('token', response.data.result.token)
         localStorage.setItem('user', JSON.stringify(response.data.result.user))
-        navigate("/login");
+        // navigate("/login");
         })
         .catch((err) => {
             console.log(err);
@@ -54,36 +80,13 @@ function ResetPassword() {
         setInputtedConfirmPassword("");
     };
 
-    // useEffect(() => {
-    //     if (Object.keys(formErrors).length === 0 && isSubmit) {
-    //         //console.log(inputData);
-    //     }
-    // }, [formErrors]);
+    useEffect(() => {
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
+            //console.log(inputData);
+        }
+    }, [formErrors]);
 
-    const validati = (values) => {
-        console.log(values)
-        const errors = {};
-        const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
-        if (!values.newPassword) {
-            errors.newPassword = "Password is required!";
-        } else if (values.newPassword < 4) {
-            errors.newPassword = "Password must be more than 4 characters";
-        } else if (values.newPassword > 20) {
-            errors.newPassword = "Password cannot exceed than 20 characters";
-        } else if (!regex.test(values.newPassword)) {
-            errors.newPassword = "must contain 6 characters, one uppercase, one lowercase, one number and one special case character";
-        }
-        if (!values.confirmPassword) {
-            errors.confirmPassword = "Password is required!";
-        } else if (values.confirmPassword < 4) {
-            errors.confirmPassword = "Password must be more than 4 characters";
-        } else if (values.confirmPassword > 20) {
-            errors.confirmPassword = "Password cannot exceed than 20 characters";
-        } else if (!regex.test(values.confirmPassword)) {
-            errors.confirmPassword = "must contain 6 characters, one uppercase, one lowercase, one number and one special case character";
-        }
-        return errors;
-    }
+    
 
     return (
         <div className="hero-reset">
@@ -110,7 +113,7 @@ function ResetPassword() {
                             </div>
                             <p>{formErrors.confirm_password}</p>
 
-                            <a href="/login">RESET MY PASSWORD</a>
+                            <button type='submit'>RESET MY PASSWORD</button>
                         </div>
                     </form>    
                 </div>    
